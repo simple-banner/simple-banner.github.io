@@ -1,0 +1,101 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-collection.html"> -->
+<link rel="import" href="../../bower_components/firebase-element/firebase-document.html">
+
+<dom-module id="simple-banner">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-card {
+        max-width: 450px;
+      }
+      paper-input {
+
+      }
+      .cafe-header { @apply(--paper-font-headline); }
+      .cafe-light { color: var(--paper-grey-600); }
+      .cafe-location {
+        float: right;
+        font-size: 15px;
+        vertical-align: middle;
+      }
+      .cafe-reserve {
+        color: var(--google-blue-500);
+      }
+      iron-icon.star {
+        --iron-icon-width: 16px;
+        --iron-icon-height: 16px;
+        color: var(--paper-amber-500);
+      }
+      iron-icon.star:last-of-type {
+        color: var(--paper-grey-500);
+      }
+    </style>
+
+    <template is="dom-bind">
+      <firebase-collection
+        order-by-child="url"
+        limit-to-first="1"
+        location="https://simple-carousel.firebaseio.com/images"
+        data="{{images}}"></firebase-collection>
+
+      <template is="dom-repeat" items="[[images]]" as="image">
+
+                <!-- <iron-image sizing="cover" preload fade
+                            style="width:640px; height:320px; background-color: lightgray;"
+                            src="[[image.image-url-en]]"></iron-image> -->
+
+      </template>
+    </template>
+
+    <paper-card heading="[[preview]]" image="[[imgSrc]]" alt="[[preview]]">
+    <div class="card-content">
+      <div class="cafe-header">Banner Publish Tool
+      </div>
+      <p>Publish a new image source to the selected banner.</p>
+      <!-- <p class="cafe-light">Publish a new image source to the selected banner.</p> -->
+      <paper-input placeholder="URL to image" value="{{url}}" on-change="updateUrl"></paper-input>
+      <paper-input placeholder="Banner text" value="{{preview}}"></paper-input>
+    </div>
+    <div class="card-actions">
+      <p>Go Live at:</p>
+      <div class="horizontal justified">
+        <paper-icon-button icon="icons:event"></paper-icon-button>
+        <paper-button>Now</paper-button>
+        <paper-button>5:30PM</paper-button>
+        <paper-button>7:30PM</paper-button>
+        <paper-button>9:00PM</paper-button>
+      </div>
+      <paper-button class="cafe-reserve">Publish</paper-button>
+    </div>
+  </paper-card>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'simple-banner',
+
+      properties: {
+        imgSrc: {
+          type: String,
+          notify: true,
+          value: 'http://lorempixel.com/640/320'
+        },
+      },
+
+      updateUrl: function() {
+        console.log(this.url);
+      }
+
+    });
+  </script>
+</dom-module>
