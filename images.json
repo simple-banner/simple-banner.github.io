@@ -2,38 +2,38 @@
 	{
 	"image1": {
 
-		"image-url-en": "http://placekitten.com/640/320",
-		"image-url-fr": "http://placekitten.com/640/320",
+		"value": "http://placekitten.com/640/320",
+		"imageUrlFr": "http://placekitten.com/640/320",
 
-		"link-url-en": "http://www.holacracy.org/",
-		"link-url-fr": "http://www.holacracy.org/",
+		"linkUrlEn": "http://www.holacracy.org/",
+		"linkUrlFr": "http://www.holacracy.org/",
 
-		"alt-text-en": "That's right!",
-		"alt-text-fr": "C'est vrait!"
+		"altTextEn": "That's right!",
+		"altTextFr": "C'est vrait!"
 
 	},
 	"image2": {
 
-		"image-url-en": "http://lorempixel.com/640/320",
-		"image-url-fr": "http://lorempixel.com/640/320",
+		"value": "http://lorempixel.com/640/320",
+		"imageUrlFr": "http://lorempixel.com/640/320",
 
-		"link-url-en": "http://www.holacracy.org/",
-		"link-url-fr": "http://www.holacracy.org/",
+		"linkUrlEn": "http://www.holacracy.org/",
+		"linkUrlFr": "http://www.holacracy.org/",
 
-		"alt-text-en": "That's right!",
-		"alt-text-fr": "C'est vrait!"
+		"altTextEn": "That's right!",
+		"altTextFr": "C'est vrait!"
 
 	},
 	"image3": {
 
-		"image-url-en": "http://placehold.it/640x320",
-		"image-url-fr": "http://placehold.it/640x320",
+		"value": "http://placehold.it/640x320",
+		"imageUrlFr": "http://placehold.it/640x320",
 
-		"link-url-en": "http://www.lorempixel.org/",
-		"link-url-fr": "http://www.lorempixel.org/",
+		"linkUrlEn": "http://www.holacracy.org/",
+		"linkUrlFr": "http://www.holacracy.org/",
 
-		"alt-text-en": "That's right!",
-		"alt-text-fr": "C'est vrait!"
+		"altTextEn": "That's right!",
+		"altTextFr": "C'est vrait!"
 
 	}
 }
