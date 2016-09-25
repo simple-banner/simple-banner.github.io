@@ -8,6 +8,8 @@
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-collection.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-document.html">
+<!--<link ref="import" href="../../bower_components/sc-swiper/sc-swiper.html">-->
+<link rel="import" href="../../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
 
 <dom-module id="simple-banner">
   <template>
@@ -62,16 +64,27 @@
         position: absolute;
         left: -36px;
       }
+
+      iron-swipeable-pages {
+        @apply(--layout-flex);
+      }
+
+      .page {
+        height: 200px;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+        background-color: pink;
+      }
     </style>
 
-
-      <iron-image style="width:1200px; height:800px; background-color: lightgray;"
-        sizing="cover" preload fade src="../../images/bg.png"></iron-image>
 
 
     <firebase-document
       location="https://simple-carousel.firebaseio.com/images"
-      data="{{images}}"></firebase-document>
+      data="{{firebaseImages}}"></firebase-document>
 
     <iron-swipeable-container>
           <paper-card class="presenter" heading="{{images.image1.text}}" image="{{images.image1.value}}" alt="[[images.image1.text]]">
@@ -83,8 +96,8 @@
       <div class="cafe-header">Banner Publish Tool</div>
       <p>Publish a new image source to the selected banner.</p>
       <!-- <p class="cafe-light">Publish a new image source to the selected banner.</p> -->
-      <paper-input placeholder="URL to image" value="{{images.image1.value}}"></paper-input>
-      <paper-input placeholder="Banner text" value="{{images.image1.text}}"></paper-input>
+      <paper-input placeholder="URL to image" value="{{firebaseImages.image1.value}}"></paper-input>
+      <paper-input placeholder="Banner text" value="{{firebaseImages.image1.text}}"></paper-input>
     </div>
     <div class="card-actions">
       <p>Go Live at:</p>
@@ -97,7 +110,18 @@
       </div>
       <paper-button class="cafe-reserve" on-tap="submit">Publish</paper-button>
     </div>
+
+
+
+
+
   </paper-card>
+
+    <iron-swipeable-pages selected="0">
+      <template is="dom-repeat" items="{{images}}">
+        <img class="page" src="{{item.value}}" width="640" height="300">
+      </template>
+    </iron-swipeable-pages>
 
   <paper-toast id="mainToast" duration="5000" text="Content Published!">
     <paper-button on-tap="closeToast" class="yellow-button">Undo</paper-button>
@@ -116,10 +140,22 @@
           notify: true,
           value: 'http://lorempixel.com/640/320'
         },
-        images: {
 
+        firebaseImages: Object,
+
+        images: {
+          type: Array,
+          computed: '_computeImages(firebaseImages)'
         }
 
+      },
+
+      _computeImages: function(firebaseImages) {
+        var imageArr = [];
+        for(var imgObj in firebaseImages) {
+          imageArr.push(firebaseImages[imgObj]);
+        }
+        return imageArr;
       },
 
       updateUrl: function() {
