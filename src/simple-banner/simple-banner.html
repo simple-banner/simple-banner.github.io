@@ -18,8 +18,8 @@
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
       }
-      paper-material, paper-input, paper-button[raised] {
-        margin: 24px;
+      paper-material, paper-input, .publish {
+        margin: 12px 24px;
       }
       .cafe-header { @apply(--paper-font-headline); }
       .cafe-light { color: var(--paper-grey-600); }
@@ -95,16 +95,16 @@
 
       <iron-swipeable-pages selected="0">
         <div>
-          <iron-image style="width:100%px; height:320px; background-color: #fafafa;"
+          <iron-image style="width:100%px; height:320px; background-color: #fff;"
                       sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
         </div>
         <div>
-          <iron-image style="width:100%px; height:320px; background-color: #fafafa;"
+          <iron-image style="width:100%px; height:320px; background-color: #fff;"
                       sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
         </div>
         <div>
-          <iron-image style="width:100%px; height:320px; background-color: #fafafa;"
-                      sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
+          <iron-image style="width:100%px; height:320px; background-color: #fff;"
+                      sizing="contain" preload fade src="{{images.image3.value}}"></iron-image>
         </div>
       </iron-swipeable-pages>
 
@@ -114,7 +114,7 @@
       <paper-input placeholder="URL to image" value="{{images.image2.value}}"></paper-input>
       <paper-input placeholder="URL to image" value="{{images.image3.value}}"></paper-input>
 
-      <paper-button raised on-tap="submit">Publish</paper-button>
+      <paper-button class="publish" on-tap="submit">Publish</paper-button>
     </div>
 
 
