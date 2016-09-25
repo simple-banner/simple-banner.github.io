@@ -16,9 +16,9 @@
       :host {
         display: block;
         @apply(--layout-horizontal);
-        /*@apply(--layout-center-justified);*/
+        @apply(--layout-center-justified);
       }
-      paper-card {
+      paper-material, paper-input, paper-button[raised] {
         margin: 24px;
       }
       .cafe-header { @apply(--paper-font-headline); }
@@ -48,9 +48,11 @@
         }
       }
 
+      paper-material {
+        max-width: 100%;
+      }
       .toolbar {
-        width: 400px;
-        border: none;
+        width: 100%;
       }
 
       iron-swipeable-pages {
@@ -62,7 +64,9 @@
         -moz-user-select: none;     /* Firefox all */
         -ms-user-select: none;      /* IE 10+ */
         user-select: none;          /* Likely future */
-        cursor: default;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
       }
 
       .page {
@@ -70,14 +74,18 @@
       }
 
       iron-swipeable-pages {
-        height: 320px;
+        height: 324px;
         width: 640px;
         /*min-height: 160px;*/
         /*max-height: 320px;*/
         /*min-width: 320px;*/
         /*max-width: 640px;*/
         max-width: 100%;
-        cursor: pointer;
+      }
+
+      iron-image {
+        width: 100%;
+        height: 100%;
       }
     </style>
 
@@ -86,30 +94,33 @@
       location="https://simple-carousel.firebaseio.com/images"
       data="{{images}}"></firebase-document>
 
-    <paper-material elevation="0">
+    <paper-material elevation="1">
+
+      <iron-swipeable-pages selected="0">
+        <div>
+          <iron-image style="width:100%px; height:320px; background-color: #fafafa;"
+                      sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
+        </div>
+        <div>
+          <iron-image style="width:100%px; height:320px; background-color: #fafafa;"
+                      sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
+        </div>
+        <div>
+          <iron-image style="width:100%px; height:320px; background-color: #fafafa;"
+                      sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
+        </div>
+      </iron-swipeable-pages>
+
     <div class="toolbar">
 
       <paper-input placeholder="URL to image" value="{{images.image1.value}}"></paper-input>
       <paper-input placeholder="URL to image" value="{{images.image2.value}}"></paper-input>
       <paper-input placeholder="URL to image" value="{{images.image3.value}}"></paper-input>
 
-      <paper-button on-tap="submit">Publish</paper-button>
+      <paper-button raised on-tap="submit">Publish</paper-button>
     </div>
 
-      <iron-swipeable-pages selected="0">
-        <div>
-          <iron-image style="width:640px; height:310px; background-color: #fafafa;"
-                      sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
-        </div>
-        <div>
-          <iron-image style="width:640px; height:310px; background-color: lightgray;"
-                      sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
-        </div>
-        <div>
-          <iron-image style="width:640px; height:310px; background-color: lightgray;"
-                      sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
-        </div>
-      </iron-swipeable-pages>
+
 
       </paper-material>
 
