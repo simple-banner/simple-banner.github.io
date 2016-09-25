@@ -19,11 +19,10 @@
       :host {
         display: block;
         @apply(--layout-horizontal);
-        @apply(--layout-center-justified);
+        /*@apply(--layout-center-justified);*/
       }
       paper-card {
         margin: 24px;
-        --paper-card-header-color: #fff;
       }
       .cafe-header { @apply(--paper-font-headline); }
       .cafe-light { color: var(--paper-grey-600); }
@@ -40,7 +39,7 @@
           display: none;
         }
         paper-card {
-          max-width: 450px;
+          /*max-width: 450px;*/
         }
       }
       @media (min-width: 768px) {
@@ -52,6 +51,10 @@
         }
       }
 
+      .toolbar {
+        width: 400px;
+        border: none;
+      }
 
     </style>
 
@@ -60,57 +63,40 @@
       location="https://simple-carousel.firebaseio.com/images"
       data="{{images}}"></firebase-document>
 
-    <!--<iron-swipeable-container>-->
-          <!--<paper-card class="presenter" heading="{{images.image1.text}}" image="{{images.image1.value}}" alt="[[images.image1.text]]">-->
-        <!--</paper-card>-->
-    <!--</iron-swipeable-container>-->
+    <paper-material elevation="0">
+    <div class="toolbar">
+      <button on-tap="_onPrevClick">&#8678;</button>
+      <button on-tap="_onNextClick">&#8680;</button>
+      <button on-click="_onUpClick">&#8679;</button>
+      <button on-click="_onDownClick">&#8681;</button>
 
-    <paper-card class="controller">
-    <div class="card-content">
-      <div class="cafe-header">Banner Publish Tool</div>
-      <p>Publish a new image source to the selected banner.</p>
-      <!-- <p class="cafe-light">Publish a new image source to the selected banner.</p> -->
       <paper-input placeholder="URL to image" value="{{images.image1.value}}"></paper-input>
-      <paper-input placeholder="Banner text" value="{{images.image1.text}}"></paper-input>
-    </div>
-      <div class="card-actions">
-        <!--<p>Go Live at:</p>-->
-        <!--<div class="horizontal justified">-->
-        <!--<paper-icon-button icon="icons:event"></paper-icon-button>-->
-        <!--<paper-button>Now</paper-button>-->
-        <!--<paper-button>5:30PM</paper-button>-->
-        <!--<paper-button>7:30PM</paper-button>-->
-        <!--<paper-button>9:00PM</paper-button>-->
-        <!--</div>-->
-        <paper-button class="cafe-reserve" on-tap="submit">Publish</paper-button>
-      </div>
-      <div class="toolbar">
-        <button on-tap="_onPrevClick">&#8678;</button>
-        <button on-tap="_onNextClick">&#8680;</button>
-        <button on-click="_onUpClick">&#8679;</button>
-        <button on-click="_onDownClick">&#8681;</button>
-      </div>
-      <neon-animated-pages id="pages" selected="0" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
-        <neon-animatable>
-          <iron-image style="width:600px; height:320px; background-color: lightgray;"
-                      sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
-        </neon-animatable>
-        <neon-animatable>
-          <iron-image style="width:600px; height:320px; background-color: lightgray;"
-                      sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
-        </neon-animatable>
-        <neon-animatable>
-          <iron-image style="width:600px; height:320px; background-color: lightgray;"
-                      sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
-        </neon-animatable>
-      </neon-animated-pages>
+      <paper-input placeholder="URL to image" value="{{images.image2.value}}"></paper-input>
+      <paper-input placeholder="URL to image" value="{{images.image3.value}}"></paper-input>
 
-  </paper-card>
+      <!--<paper-button on-tap="submit">Publish</paper-button>-->
+    </div>
+    <neon-animated-pages id="pages" selected="0" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+      <neon-animatable>
+        <iron-image style="width:600px; height:320px; background-color: lightgray;"
+                    sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
+      </neon-animatable>
+      <neon-animatable>
+        <iron-image style="width:600px; height:320px; background-color: lightgray;"
+                    sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
+      </neon-animatable>
+      <neon-animatable>
+        <iron-image style="width:600px; height:320px; background-color: lightgray;"
+                    sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
+      </neon-animatable>
+    </neon-animated-pages>
+      </paper-material>
 
 
   <paper-toast id="mainToast" duration="5000" text="Content Published!">
     <paper-button on-tap="closeToast" class="yellow-button">Undo</paper-button>
   </paper-toast>
+
 
   </template>
 
