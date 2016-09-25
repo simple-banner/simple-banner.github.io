@@ -1,16 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-swipeable-container/iron-swipeable-container.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-collection.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-document.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
 
 
 <dom-module id="simple-banner">
@@ -56,6 +53,32 @@
         border: none;
       }
 
+      iron-swipeable-pages {
+        @apply(--layout-flex);
+      }
+
+      iron-swipeable-pages > * {
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */
+        cursor: default;
+      }
+
+      .page {
+        height: 100%;
+      }
+
+      iron-swipeable-pages {
+        height: 320px;
+        width: 640px;
+        /*min-height: 160px;*/
+        /*max-height: 320px;*/
+        /*min-width: 320px;*/
+        /*max-width: 640px;*/
+        max-width: 100%;
+        cursor: pointer;
+      }
     </style>
 
 
@@ -65,31 +88,29 @@
 
     <paper-material elevation="0">
     <div class="toolbar">
-      <button on-tap="_onPrevClick">&#8678;</button>
-      <button on-tap="_onNextClick">&#8680;</button>
-      <button on-click="_onUpClick">&#8679;</button>
-      <button on-click="_onDownClick">&#8681;</button>
 
       <paper-input placeholder="URL to image" value="{{images.image1.value}}"></paper-input>
       <paper-input placeholder="URL to image" value="{{images.image2.value}}"></paper-input>
       <paper-input placeholder="URL to image" value="{{images.image3.value}}"></paper-input>
 
-      <!--<paper-button on-tap="submit">Publish</paper-button>-->
+      <paper-button on-tap="submit">Publish</paper-button>
     </div>
-    <neon-animated-pages id="pages" selected="0" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
-      <neon-animatable>
-        <iron-image style="width:600px; height:320px; background-color: lightgray;"
-                    sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
-      </neon-animatable>
-      <neon-animatable>
-        <iron-image style="width:600px; height:320px; background-color: lightgray;"
-                    sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
-      </neon-animatable>
-      <neon-animatable>
-        <iron-image style="width:600px; height:320px; background-color: lightgray;"
-                    sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
-      </neon-animatable>
-    </neon-animated-pages>
+
+      <iron-swipeable-pages selected="0">
+        <div>
+          <iron-image style="width:640px; height:310px; background-color: #fafafa;"
+                      sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
+        </div>
+        <div>
+          <iron-image style="width:640px; height:310px; background-color: lightgray;"
+                      sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
+        </div>
+        <div>
+          <iron-image style="width:640px; height:310px; background-color: lightgray;"
+                      sizing="cover" preload fade src="{{images.image3.value}}"></iron-image>
+        </div>
+      </iron-swipeable-pages>
+
       </paper-material>
 
 
