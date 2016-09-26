@@ -96,46 +96,85 @@
 
     <firebase-document
       location="https://simple-carousel.firebaseio.com/images"
-      data="{{firebaseImages}}"></firebase-document>
+      data="{{images}}"></firebase-document>
 
     <paper-material elevation="1">
 
       <iron-swipeable-pages id="ironCarousel" selected="{{slideIndex}}">
-        <template is="dom-repeat" items="{{images}}" as="image">
           <div>
             <iron-image style="width:100%px; height:320px; background-color: #fff;"
-                        sizing="cover" preload fade src="{{image.value}}" alt="{{image.altTextEn}}"></iron-image>
+                        sizing="cover" preload fade src="{{images.image1.value}}" alt="{{images.image1.altTextEn}}"></iron-image>
           </div>
-        </template>
+          <div>
+            <iron-image style="width:100%px; height:320px; background-color: #fff;"
+                        sizing="cover" preload fade src="{{images.image2.value}}" alt="{{images.image2.altTextEn}}"></iron-image>
+          </div>
+          <div>
+            <iron-image style="width:100%px; height:320px; background-color: #fff;"
+                        sizing="cover" preload fade src="{{images.image3.value}}" alt="{{images.image3.altTextEn}}"></iron-image>
+          </div>
       </iron-swipeable-pages>
 
     <div class="toolbar">
       <iron-swipeable-pages id="ironPropsCarousel" selected="{{slideIndex}}" transition-duration="0">
-        <template is="dom-repeat" items="{{images}}" as="image">
           <div>
-            <div hidden$="[[isFrench]]">
-              <paper-input label="Image link URL" value="{{image.value}}"></paper-input>
-              <paper-input label="Image text label" value="{{image.text}}"></paper-input>
-              <paper-input label="Image launch URL" value="{{image.linkUrlEn}}"></paper-input>
-              <paper-input label="Image Alt Text" value="{{image.altTextEn}}"></paper-input>
+              <div hidden$="[[isFrench]]">
+                  <paper-input label="Image link URL" value="{{images.image1.value}}"></paper-input>
+                  <paper-input label="Image text label" value="{{images.image1.text}}"></paper-input>
+                  <paper-input label="Image launch URL" value="{{images.image1.linkUrlEn}}"></paper-input>
+                  <paper-input label="Image Alt Text" value="{{images.image1.altTextEn}}"></paper-input>
 
-            </div>
+                </div>
 
-            <div hidden$="[[!isFrench]]">
-              <paper-input label="Image link URL" value="{{image.value}}"></paper-input>
-              <!--<paper-input label="Image text label" value="{{image.text}}"></paper-input>-->
-              <paper-input label="Image launch URL" value="{{image.linkUrlFr}}"></paper-input>
-              <paper-input label="Image Alt Text" value="{{image.altTextFr}}"></paper-input>
-            </div>
+                <div hidden$="[[!isFrench]]">
+                  <paper-input label="Image link URL" value="{{images.image1.value}}"></paper-input>
+                  <paper-input label="Image launch URL" value="{{images.image1.linkUrlFr}}"></paper-input>
+                  <paper-input label="Image Alt Text" value="{{images.image1.altTextFr}}"></paper-input>
+                </div>
 
-            <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
-            <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+              <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+              <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+
+        </div>
+        <div>
+          <div hidden$="[[isFrench]]">
+            <paper-input label="Image link URL" value="{{images.image2.value}}"></paper-input>
+            <paper-input label="Image text label" value="{{images.image2.text}}"></paper-input>
+            <paper-input label="Image launch URL" value="{{images.image2.linkUrlEn}}"></paper-input>
+            <paper-input label="Image Alt Text" value="{{images.image2.altTextEn}}"></paper-input>
+
           </div>
-        </template>
+
+          <div hidden$="[[!isFrench]]">
+            <paper-input label="Image link URL" value="{{images.image2.value}}"></paper-input>
+            <paper-input label="Image launch URL" value="{{images.image2.linkUrlFr}}"></paper-input>
+            <paper-input label="Image Alt Text" value="{{images.image2.altTextFr}}"></paper-input>
+          </div>
+
+          <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+          <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+        </div>
+
+        <div>
+          <div hidden$="[[isFrench]]">
+            <paper-input label="Image link URL" value="{{images.image3.value}}"></paper-input>
+            <paper-input label="Image text label" value="{{images.image3.text}}"></paper-input>
+            <paper-input label="Image launch URL" value="{{images.image3.linkUrlEn}}"></paper-input>
+            <paper-input label="Image Alt Text" value="{{images.image3.altTextEn}}"></paper-input>
+
+          </div>
+
+          <div hidden$="[[!isFrench]]">
+            <paper-input label="Image link URL" value="{{images.image3.value}}"></paper-input>
+            <paper-input label="Image launch URL" value="{{images.image3.linkUrlFr}}"></paper-input>
+            <paper-input label="Image Alt Text" value="{{images.image3.altTextFr}}"></paper-input>
+          </div>
+
+          <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+          <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+        </div>
       </iron-swipeable-pages>
 
-
-      <!---->
 
 
       <p>
@@ -169,12 +208,7 @@
           value: 'http://lorempixel.com/640/320'
         },
 
-        firebaseImages: Object,
-
-        images: {
-          type: Array,
-          computed: '_computeImages(firebaseImages)'
-        },
+        images: Object,
 
         slideIndex: {
           type: Number,
@@ -201,14 +235,6 @@
 
       toggleFrench: function() {
         this.isFrench = !this.isFrench;
-      },
-
-      _computeImages: function(firebaseImages) {
-        var imageArr = [];
-        for(var imgObj in firebaseImages) {
-          imageArr.push(firebaseImages[imgObj]);
-        }
-        return imageArr;
       },
 
       updateUrl: function() {
