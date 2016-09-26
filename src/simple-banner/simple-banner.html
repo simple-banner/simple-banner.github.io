@@ -8,6 +8,9 @@
 <link rel="import" href="../../bower_components/firebase-element/firebase-collection.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-document.html">
 <link rel="import" href="../../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-date-picker-item/paper-date-picker-item.html">
+<link rel="import" href="../../bower_components/paper-date-picker-item/paper-datetime-picker-item.html">
 
 
 <dom-module id="simple-banner">
@@ -80,6 +83,10 @@
         max-width: 100%;
       }
 
+      #ironPropsCarousel {
+        height: 425px;
+      }
+
       iron-image {
         width: 100%;
         height: 100%;
@@ -89,33 +96,53 @@
 
     <firebase-document
       location="https://simple-carousel.firebaseio.com/images"
-      data="{{images}}"></firebase-document>
+      data="{{firebaseImages}}"></firebase-document>
 
     <paper-material elevation="1">
 
-      <iron-swipeable-pages selected="0">
-        <div>
-          <iron-image style="width:100%px; height:320px; background-color: #fff;"
-                      sizing="cover" preload fade src="{{images.image1.value}}"></iron-image>
-        </div>
-        <div>
-          <iron-image style="width:100%px; height:320px; background-color: #fff;"
-                      sizing="cover" preload fade src="{{images.image2.value}}"></iron-image>
-        </div>
-        <div>
-          <iron-image style="width:100%px; height:320px; background-color: #fff;"
-                      sizing="contain" preload fade src="{{images.image3.value}}"></iron-image>
-        </div>
+      <iron-swipeable-pages id="ironCarousel" selected="{{slideIndex}}">
+        <template is="dom-repeat" items="{{images}}" as="image">
+          <div>
+            <iron-image style="width:100%px; height:320px; background-color: #fff;"
+                        sizing="cover" preload fade src="{{image.value}}" alt="{{image.altTextEn}}"></iron-image>
+          </div>
+        </template>
       </iron-swipeable-pages>
 
     <div class="toolbar">
+      <iron-swipeable-pages id="ironPropsCarousel" selected="{{slideIndex}}" transition-duration="0">
+        <template is="dom-repeat" items="{{images}}" as="image">
+          <div>
+            <div hidden$="[[isFrench]]">
+              <paper-input label="Image link URL" value="{{image.value}}"></paper-input>
+              <paper-input label="Image text label" value="{{image.text}}"></paper-input>
+              <paper-input label="Image launch URL" value="{{image.linkUrlEn}}"></paper-input>
+              <paper-input label="Image Alt Text" value="{{image.altTextEn}}"></paper-input>
 
-      <paper-input label="Image 1 URL" value="{{images.image1.value}}"></paper-input>
-      <paper-input label="Image 2 URL" value="{{images.image2.value}}"></paper-input>
-      <paper-input label="Image 3 URL" value="{{images.image3.value}}"></paper-input>
+            </div>
+
+            <div hidden$="[[!isFrench]]">
+              <paper-input label="Image link URL" value="{{image.value}}"></paper-input>
+              <!--<paper-input label="Image text label" value="{{image.text}}"></paper-input>-->
+              <paper-input label="Image launch URL" value="{{image.linkUrlFr}}"></paper-input>
+              <paper-input label="Image Alt Text" value="{{image.altTextFr}}"></paper-input>
+            </div>
+
+            <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+            <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+          </div>
+        </template>
+      </iron-swipeable-pages>
 
 
-      <paper-button class="publish" on-tap="submit">Publish</paper-button>
+      <!---->
+
+
+      <p>
+        <paper-button raised on-tap="submit" name="submit" id="submit">Publish</paper-button>
+        <paper-checkbox on-tap="toggleFrench">French</paper-checkbox>
+      </p>
+
     </div>
 
 
@@ -141,10 +168,24 @@
           notify: true,
           value: 'http://lorempixel.com/640/320'
         },
+
+        firebaseImages: Object,
+
         images: {
+          type: Array,
+          computed: '_computeImages(firebaseImages)'
+        },
 
+        slideIndex: {
+          type: Number,
+          value: 0
+        },
+
+        isFrench: {
+          type: Boolean,
+          notify: true,
+          value: false
         }
-
       },
 
       _onNextClick: function () {
@@ -156,6 +197,18 @@
         this.$.pages.entryAnimation = 'slide-from-left-animation';
         this.$.pages.exitAnimation = 'slide-right-animation';
         this.$.pages.selectPrevious();
+      },
+
+      toggleFrench: function() {
+        this.isFrench = !this.isFrench;
+      },
+
+      _computeImages: function(firebaseImages) {
+        var imageArr = [];
+        for(var imgObj in firebaseImages) {
+          imageArr.push(firebaseImages[imgObj]);
+        }
+        return imageArr;
       },
 
       updateUrl: function() {
