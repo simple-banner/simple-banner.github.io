@@ -3,7 +3,11 @@
   "description": "A simple carousel that can be used as a WebView in a native iOS or Android app and updated across all platforms in real-time.",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-checkbox": "^1.4.0",
+    "bower": "*",
+    "install": "^1.0.4",
+    "paper-date-picker-item": "^1.0.26"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
